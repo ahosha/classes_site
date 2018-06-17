@@ -1,0 +1,28 @@
+{% extends "base.jinja2" %}
+{% block content %}
+    <div class="page-header">
+        <h1>Students
+            <small>list of students</small>
+        </h1>
+    </div>
+    <div class="list-group">
+        {% for student in students %}
+            <a href="{{ url_for('students.student_page', student_username=student.username) }}" class="list-group-item">
+                <h4 class="list-group-item-heading">{{ student.username }}</h4>
+                <p class="list-group-item-text">Password: <strong>{{ student.password }}</strong></p>
+                <p class="list-group-item-text">First name: <strong>{{ student.firstname }}</strong></p>
+                <p class="list-group-item-text">Last name: <strong>{{ student.lastname }}</strong></p>
+                <p class="list-group-item-text">Location : <strong>{{ student.location  }}</strong></p>
+                <p class="list-group-item-text">Last name: <strong>{{ student.lastname }}</strong></p>
+                <p class="list-group-item-text">Location : <strong>{{ student.location  }}</strong></p>
+                <p class="list-group-item-text">abonementtype: <strong>{{ student.abonementtype }}</strong></p>
+                <p class="list-group-item-text">abonementstartdate : <strong>{{ student.abonementstartdate  }}</strong></p>
+                <p class="list-group-item-text">Active: <strong>{{ student.active }}</strong></p>
+            </a>
+        {% endfor %}
+    </div>
+    {% if session['email'] in config.ADMINS %}
+        <a class="btn btn-success" href="{{ url_for('students.create_student') }}"><span
+                class="glyphicon glyphicon-plus"></span> Create new</a>
+    {% endif %}
+{% endblock %}

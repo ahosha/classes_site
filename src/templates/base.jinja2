@@ -27,6 +27,9 @@
             <ul class="nav navbar-nav">
                 <li><a href="{{ url_for('teachers.index') }}" title="Teachers">Teachers</a></li>
             </ul>
+            <ul class="nav navbar-nav">
+                <li><a href="{{ url_for('students.index') }}" title="Students">Students</a></li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if session['email'] %}
                     <li><a href="{{ url_for('users.user_alerts') }}" title="Your Alerts"><span class="glyphicon glyphicon-user"></span> Your Alerts</a></li>
