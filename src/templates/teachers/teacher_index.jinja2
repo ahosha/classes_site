@@ -7,7 +7,7 @@
     </div>
     <div class="list-group">
         {% for teacher in teachers %}
-            <a href="{{ url_for('teachers.teacher_page', teacher_id=teacher._id) }}" class="list-group-item">
+            <a href="{{ url_for('teachers.teacher_page', teacher_username=teacher.username) }}" class="list-group-item">
                 <h4 class="list-group-item-heading">{{ teacher.username }}</h4>
                 <p class="list-group-item-text">Password: <strong>{{ teacher.password }}</strong></p>
                 <p class="list-group-item-text">First name: <strong>{{ teacher.firstname }}</strong></p>

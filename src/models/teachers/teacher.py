@@ -2,7 +2,7 @@ import uuid
 from src.common.database import Database
 import src.models.teachers.constants as TeacherConstants
 import src.models.teachers.errors as TeacherErrror
-from src.common.utils import  Utils
+from src.common.utils import Utils
 
 __author__ = 'ahosha'
 
@@ -18,7 +18,7 @@ class Teacher(object):
         self._id = uuid.uuid4().hex if _id is None else _id
 
     def __repr__(self):
-        #return "<Teacher username:{} firstname:{} lastname:{}>".format(self.username, self.firstname, self.lastname)
+        # return "<Teacher username:{} firstname:{} lastname:{}>".format(self.username, self.firstname, self.lastname)
         return "<Teacher username:{}".format(self.username)
 
     def json(self):
@@ -34,6 +34,9 @@ class Teacher(object):
 
     def delete(self):
         Database.remove(TeacherConstants.COLLECTION, {'_id': self._id})
+
+    def save_to_mongo(self):
+        Database.update(TeacherConstants.COLLECTION, {'_id': self._id}, self.json())
 
     @classmethod
     def all(cls):
@@ -52,23 +55,19 @@ class Teacher(object):
     def get_by_id(cls, id):
         return cls(**Database.find_one(TeacherConstants.COLLECTION, {"_id": id}))
 
-    def save_to_mongo(self):
-        Database.update(TeacherConstants.COLLECTION, {'_id': self._id}, self.json())
 
     @classmethod
     def get_by_username(cls, username):
         return cls(**Database.find_one(TeacherConstants.COLLECTION, {"username": username}))
 
-
-
     @classmethod
-    def check_before_save(cls, username, password,firstname,lastname,location, active):
+    def check_before_save(cls, username, password, firstname, lastname, location, active):
         if Utils.isBlank(username) or Utils.isBlank(password) or Utils.isBlank(firstname) or Utils.isBlank(
                 lastname) or Utils.isBlank(location) or Utils.isBlank(active):
             raise TeacherErrror.TeacherWrongInputDataException("one of the input parameters is wrong. Please check ...")
 
-        if Teacher.get_by_username(username) is not None:
-            raise TeacherErrror.TeacherExistsException("teacher with username {} already exists".format(username))
+        # if Teacher.get_by_username(username) is not None:
+        #     raise TeacherErrror.TeacherExistsException("teacher with username {} already exists".format(username))
 
 
 

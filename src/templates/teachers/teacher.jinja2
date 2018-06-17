@@ -10,19 +10,15 @@
     <p>lastname: <strong>{{ teacher.lastname }}</strong></p><br/>
     <p>location: <strong>{{ teacher.location }}</strong></p><br/>
     <p>active: <strong>{{ teacher.active }}</strong></p><br/>
-
-<!--
     {% if session['email'] in config.ADMINS %}
         <div class="panel panel-default">
             <div class="panel-body">
-                <a class="btn btn-warning" href="{{ url_for('stores.edit_store', store_id=store._id) }}" role="button">Edit
-                    Store</a>
-                <a class="btn btn-danger" href="{{ url_for('stores.delete_store', store_id=store._id) }}" role="button">Permanently
-                    Delete Store</a>
+                <a class="btn btn-warning" href="{{ url_for('teachers.edit_teacher', teacher_id=teacher._id) }}" role="button">Edit Teacher</a>
+                <a class="btn btn-danger" href="{{ url_for('teachers.delete_teacher', teacher_id=teacher._id) }}" role="button">Permanently Delete Teacher</a>
             </div>
         </div>
     {% endif %}
--->
+
 
 {% endblock %}
 

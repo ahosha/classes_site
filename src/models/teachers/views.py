@@ -61,14 +61,19 @@ def edit_teacher(teacher_id):
 
         return redirect(url_for('.index'))
 
-    return render_template("teachers/edit_teacher.jinja2", store=Teacher.get_by_id(teacher_id))
+    return render_template("teachers/edit_teacher.jinja2", teacher=Teacher.get_by_id(teacher_id))
 
 
 @teacher_blueprint.route('/delete/<string:teacher_id>')
 def delete_teacher(teacher_id):
     Teacher.get_by_id(teacher_id).delete()
+    return redirect(url_for('.index'))
 
 
-@teacher_blueprint.route('/<string:teacher_id>')
-def teacher_page(teacher_id):
-    return render_template('teachers/teacher.jinja2', store=Teacher.get_by_id(teacher_id))
+@teacher_blueprint.route('/<string:teacher_username>')
+def teacher_page(teacher_username):
+    teacher = Teacher.get_by_username(teacher_username)
+    if teacher is not None:
+        return render_template('teachers/teacher.jinja2', teacher=teacher)
+    else:
+        return "wrong user name"
