@@ -1,0 +1,24 @@
+{% extends "base.jinja2" %}
+{% block content %}
+    <div class="page-header">
+        <h1>Teachers
+            <small>list of teachers</small>
+        </h1>
+    </div>
+    <div class="list-group">
+        {% for teacher in teachers %}
+            <a href="{{ url_for('teachers.teacher_page', teacher_id=teacher._id) }}" class="list-group-item">
+                <h4 class="list-group-item-heading">{{ teacher.username }}</h4>
+                <p class="list-group-item-text">Password: <strong>{{ teacher.password }}</strong></p>
+                <p class="list-group-item-text">First name: <strong>{{ teacher.firstname }}</strong></p>
+                <p class="list-group-item-text">Last name: <strong>{{ teacher.lastname }}</strong></p>
+                <p class="list-group-item-text">Location : <strong>{{ teacher.location  }}</strong></p>
+                <p class="list-group-item-text">Active: <strong>{{ teacher.active }}</strong></p>
+            </a>
+        {% endfor %}
+    </div>
+    {% if session['email'] in config.ADMINS %}
+        <a class="btn btn-success" href="{{ url_for('teachers.create_teacher') }}"><span
+                class="glyphicon glyphicon-plus"></span> Create new</a>
+    {% endif %}
+{% endblock %}
