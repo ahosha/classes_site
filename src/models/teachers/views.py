@@ -2,20 +2,20 @@ import json
 from flask import Blueprint, render_template, request, redirect, url_for
 from src.models.teachers.teacher import Teacher
 import src.models.teachers.errors as TeacherErrrors
-from src.common.utils import  Utils
-
+import src.models.users.decorators as user_decorators
 
 teacher_blueprint = Blueprint('teachers', __name__)
 
 
 @teacher_blueprint.route('/')
+@user_decorators.requires_login
 def index():
     teachers = Teacher.all()
     return render_template('teachers/teacher_index.jinja2', teachers=teachers)
 
 
-
 @teacher_blueprint.route('/new', methods=['GET', 'POST'])
+@user_decorators.requires_login
 def create_teacher():
     if request.method == 'POST':
         username = request.form['username']
@@ -26,7 +26,7 @@ def create_teacher():
         active = request.form['active']
 
         try:
-            Teacher.check_before_save(username, password,firstname,lastname,location, active)
+            Teacher.check_before_save(username, password, firstname, lastname, location, active)
         except TeacherErrrors.TeacherWrongInputDataException as e:
             return e.message
         except TeacherErrrors.TeacherExistsException as e:
@@ -39,6 +39,7 @@ def create_teacher():
 
 
 @teacher_blueprint.route('/edit/<string:teacher_id>', methods=['GET', 'POST'])
+@user_decorators.requires_login
 def edit_teacher(teacher_id):
     if request.method == 'POST':
         username = request.form['username']
@@ -65,12 +66,14 @@ def edit_teacher(teacher_id):
 
 
 @teacher_blueprint.route('/delete/<string:teacher_id>')
+@user_decorators.requires_login
 def delete_teacher(teacher_id):
     Teacher.get_by_id(teacher_id).delete()
     return redirect(url_for('.index'))
 
 
 @teacher_blueprint.route('/<string:teacher_username>')
+@user_decorators.requires_login
 def teacher_page(teacher_username):
     teacher = Teacher.get_by_username(teacher_username)
     if teacher is not None:
