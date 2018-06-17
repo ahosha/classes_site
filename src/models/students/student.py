@@ -57,9 +57,9 @@ class Student(object):
         return cls(**Database.find_one(StudentConstants.COLLECTION, {"username": username}))
 
     @classmethod
-    def check_before_save(cls, username, password, firstname, lastname, location, active):
+    def check_before_save(cls, username, password, firstname, lastname, location, abonementtype, abonementstartdate, active):
         if Utils.isBlank(username) or Utils.isBlank(password) or Utils.isBlank(firstname) or Utils.isBlank(
-                lastname) or Utils.isBlank(location) or Utils.isBlank(active):
+                lastname) or Utils.isBlank(location) or Utils.isBlank(active) or Utils.isBlank(abonementtype) or Utils.isBlank(abonementstartdate):
             raise StudentErrror.StudentWrongInputDataException("one of the input parameters is wrong. Please check ...")
 
         # if Teacher.get_by_username(username) is not None:

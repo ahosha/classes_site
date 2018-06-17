@@ -23,22 +23,22 @@ def create_student():
         firstname = request.form['firstname']
         lastname = request.form['lastname']
         location = request.form['location']
-        abonementtypeid = request.form['abonementtypeid']
+        abonementtype = request.form['abonementtype']
         abonementstartdate = request.form['abonementstartdate']
         active = request.form['active']
 
 
         try:
-            Student.check_before_save(username, password, firstname, lastname, location, abonementtypeid, abonementstartdate, active)
+            Student.check_before_save(username, password, firstname, lastname, location, abonementtype, abonementstartdate, active)
         except StudentErrrors.StudentWrongInputDataException as e:
             return e.message
         except StudentErrrors.StudentExistsException as e:
             return e.message
 
-        Student(username, password, firstname, lastname, location, abonementtypeid, abonementstartdate, active).save_to_mongo()
-        return redirect(url_for(".index"))
+        Student(username, password, firstname, lastname, location, abonementtype, abonementstartdate, active).save_to_mongo()
+        return redirect(url_for('.index'))
 
-    return render_template("students/new_student.jinja2")
+    return render_template('students/new_student.jinja2')
 
 
 @student_blueprint.route('/edit/<string:student_id>', methods=['GET', 'POST'])
@@ -50,7 +50,7 @@ def edit_student(student_id):
         firstname = request.form['firstname']
         lastname = request.form['lastname']
         location = request.form['location']
-        abonementtypeid = request.form['abonementtypeid']
+        abonementtype = request.form['abonementtype']
         abonementstartdate = request.form['abonementstartdate']
         active = request.form['active']
 
@@ -61,7 +61,7 @@ def edit_student(student_id):
         student.firstname = firstname
         student.lastname = lastname
         student.location = location
-        student.abonementtypeid = abonementtypeid
+        student.abonementtype = abonementtype
         student.abonementstartdate = abonementstartdate
         student.active = active
 
