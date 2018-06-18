@@ -1,0 +1,23 @@
+{% extends "base.jinja2" %}
+{% block content %}
+    <div class="page-header">
+        <h1>Stores
+            <small>list of lessons</small>
+        </h1>
+    </div>
+    <div class="list-group">
+        {% for lesson in lessons %}
+            <a href="{{ url_for('lessons.lesson_page', lesson_id=lesson._id) }}" class="list-group-item">
+                <h4 class="list-group-item-heading">{{ lesson.name }}</h4>
+                <p class="list-group-item-text">{{ lesson.teacher }}</p>
+                <p class="list-group-item-text">{{ lesson.date }}</p>
+                <p class="list-group-item-text">{{ lesson.time }}</p>
+                <p class="list-group-item-text">{{ lesson.lessontype }}</p>
+            </a>
+        {% endfor %}
+    </div>
+    {% if session['email'] in config.ADMINS %}
+        <a class="btn btn-success" href="{{ url_for('lessons.create_lesson') }}"><span
+                class="glyphicon glyphicon-plus"></span> Create new</a>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.jinja2" %}
+{% block content %}
+     <div class="page-header">
+        <h1>Create Lesson</h1>
+    </div>
+    <div class="form">
+        <form method="post">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Name" >
+            </div>
+            <div class="form-group">
+                <label for="teacher">Teacher</label>
+                <input type="text" class="form-control" id="teacherid" name="teacherid" placeholder="Teacher"
+                aria-describedby="lessonURLPrefixHelp" >
+                <span id="lessonURLPrefixHelp" class="help-block">Please select teacher for this lesson.</span>
+            </div>
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="text" class="form-control" id="date" name="date" placeholder="Date"
+                       aria-describedby="dateHelp" >
+                <span id="dateHelp" class="help-block">Select date for this lesson.</span>
+            </div>
+            <div class="form-group">
+                <label for="time">Time</label>
+                <input type="text" class="form-control" id="time" name="time" placeholder="Time"
+                       aria-describedby="timeeHelp">
+                <span id="timeeHelp" class="help-block">Select time for this lesson.</span>
+            </div>
+            <div class="form-group">
+                <label for="lessontype">Lesson Type</label>
+                <input type="text" class="form-control" id="lessontype" name="lessontype" placeholder='Yoga'
+                       aria-describedby="typeHelpBlock">
+                <span id="typeHelpBlock" class="help-block">Select lesson type.</span>
+            </div>
+            <button type="submit" class="btn btn-warning">Create</button>
+        </form>
+    </div>
+{% endblock %}

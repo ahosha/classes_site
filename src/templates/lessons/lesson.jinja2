@@ -1,0 +1,22 @@
+{% extends "base.jinja2" %}
+{% block content %}
+    <div class="page-header">
+        <h1>Store
+            <small>{{ lesson.name }}</small>
+        </h1>
+    </div>
+    <p>Teacher:<strong>{{ lesson.teacher }}</strong></p>
+    <p>date:<strong>{{ lesson.date }}</strong></p>
+    <p>time:<strong>{{ lesson.time }}</strong></p>
+    <p>lessontype:<strong>{{ lesson.lessontype }}</strong></p>
+    {% if session['email'] in config.ADMINS %}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <a class="btn btn-warning" href="{{ url_for('lessons.edit_lesson', lesson_id=lesson._id) }}" role="button">Edit
+                    Lesson</a>
+                <a class="btn btn-danger" href="{{ url_for('lessons.delete_lesson', lesson_id=lesson._id) }}" role="button">Permanently
+                    Delete Lesson</a>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
