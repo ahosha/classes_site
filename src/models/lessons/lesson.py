@@ -2,14 +2,16 @@ import uuid
 from src.common.database import Database
 import src.models.lessons.constants as LessonConstants
 import src.models.lessons.errors as LessonErrors
+from src.models.teachers.teacher import Teacher
 
 __author__ = 'ahosha'
 
 
 class Lesson(object):
-    def __init__(self, name, teacherid, date, time, lessontype, _id=None):
+    def __init__(self, name, teacherusername, date, time, lessontype, _id=None):
         self.name = name
-        self.teacher = teacherid
+        teacher = Teacher.get_by_username(teacherusername)
+        self.username = teacher.username
         self.date = date
         self.time = time
         self.lessontype = lessontype
@@ -22,11 +24,10 @@ class Lesson(object):
         return {
             "_id": self._id,
             "name": self.name,
-            "teacher": self.teacher,
+            "teacher user name": self.username,
             "date": self.date,
             "time": self.time,
-            "lessontype": self.lessontype,
-            "query": self.query
+            "lessontype": self.lessontype
         }
 
     def delete(self):
@@ -48,8 +49,12 @@ class Lesson(object):
         return cls(**Database.find_one(LessonConstants.COLLECTION, {"name": lesson_name}))
 
     @classmethod
-    def get_by_url_prefix(cls, url_prefix):
-        return cls(**Database.find_one(LessonConstants.COLLECTION, {"url_prefix": {"$regex": '^{}'.format(url_prefix)}}))
+    def get_by_teacher(cls, first_name, last_name):
+        try:
+            return cls(**Database.find_one(LessonConstants.COLLECTION, {"first_name": first_name, "last_name": last_name}))
+        except:
+            raise LessonErrors.LessonNotFoundException(
+                "lessons for teacher {} {} weren't found".format(first_name, last_name))
 
     @classmethod
     def find_by_url(cls, url):

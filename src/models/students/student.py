@@ -8,7 +8,7 @@ __author__ = 'ahosha'
 
 
 class Student(object):
-    def __init__(self, username, password, firstname, lastname, location, active, abonementtype, abonementstartdate, _id=None):
+    def __init__(self, username, password, firstname, lastname, location, abonementtype, abonementstartdate, active, _id=None):
         self.username = username
         self.password = password
         self.firstname = firstname
@@ -22,8 +22,13 @@ class Student(object):
 
 
     def __repr__(self):
-        return "<Student username:{} firstname:{} lastname:{}>".format(self.username, self.firstname, self.lastname)
-
+        return "<Student username:{} password: {} firstname:{} lastname:{} location:{} abonementtype:{} abonementstartdate:{} active:{} id:{}>".format(self.username, self.password, self.firstname,
+                                                                                                                                       self.lastname,
+                                                                                                                                       self.location,
+                                                                                                                                       self.abonementtype,
+                                                                                                                                       self.abonementstartdate ,
+                                                                                                                                       self.active ,
+                                                                                                                                       self._id)
     def json(self):
         return {
             "_id": self._id,

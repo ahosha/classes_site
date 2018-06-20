@@ -3,6 +3,7 @@ import json
 from flask import Blueprint, render_template, request, redirect, url_for
 
 from src.models.lessons.lesson import Lesson
+from src.models.teachers.teacher import Teacher
 
 __author__ = 'ahosha'
 
@@ -21,15 +22,15 @@ def create_lesson():
     if request.method == 'POST':
 
         name = request.form['name']
-        teacherid = request.form['teacherid']
+        teacherusername  = request.form['teacherusername']
         date = request.form['date']
         time = request.form['time']
         lessontype = request.form['lessontype']
 
-        Lesson(name, teacherid, date, time, lessontype).save_to_mongo()
+        Lesson(name, teacherusername, date, time, lessontype).save_to_mongo()
 
-    # What happens if it's a GET request
-    return render_template("lessons/new_lesson.jinja2")
+
+    return render_template("lessons/new_lesson.jinja2", teachers=Teacher.all())
 
 
 @lesson_blueprint.route('/edit/<string:lesson_id>', methods=['GET', 'POST'])

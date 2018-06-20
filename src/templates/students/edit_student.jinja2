@@ -27,17 +27,36 @@
                 aria-describedby="locationHelp" value="{{ student.location }}">
                 <span id="locationHelp" class="help-block">Please enter your possible location for better class fit.</span>
             </div>
-            <div class="form-group">
-                <label for="abonementtype">abonementtype</label>
-                <input type="text" class="form-control" id="abonementtype" name="abonementtype" placeholder="Annualy" value="{{ student.abonementtype }}">
+            <!--<div class="form-group">-->
+                <!--<label for="abonementtype">abonementtype</label>-->
+                <!--<input type="text" class="form-control" id="abonementtype" name="abonementtype" placeholder="Annualy" value="{{ student.abonementtype }}">-->
+            <!--</div>-->
+           <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="abonementtype">Abonement Type:</label>
+              </div>
+                <select class="custom-select" id="abonementtype" name="abonementtype"  value="{{ student.abonementtype }}" data-width="fit">
+                    <option  value="annually" {% if student.abonementtype=='Annually'%} selected="selected"{% endif %} >Annually</option>
+                    <option  value="monthly"  {% if student.abonementtype=='Monthly'%} selected="selected"{% endif %} >Monthly</option>
+                    <option  value="limited" {% if student.abonementtype=='Limited'%} selected="selected"{% endif %} >Limited</option>
+                </select>
+                <span id="lessonURLPrefixHelp" class="help-block">Please select abonement type  for this class.</span>
             </div>
             <div class="form-group">
-                <label for="abonementstartdate">abonementstartdate</label>
+                <label for="abonementstartdate">Abonement Start Date:</label>
                 <input type="text" class="form-control" id="abonementstartdate" name="abonementstartdate" placeholder="DD/MM/YYYY" value="{{ student.abonementstartdate }}">
             </div>
+ 
             <div class="form-group">
-                <label for="active">Active</label>
-                <input type="text" class="form-control" id="active" name="active" placeholder="Yes" value="{{ student.active }}">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="active">Active:</label>
+                  </div>
+                    <select class="custom-select" id="active" name="active" value="{{ student.active }}"   data-width="fit">
+                        <option  value="yes" {% if student.active=='Yes' %} selected="selected"{% endif %} >Yes</option>
+                        <option  value="no" {% if student.active=='No' %} selected="selected"{% endif %} >No</option>
+                    </select>
+                </div>
             </div>
            <button type="submit" class="btn btn-warning">Update</button>
         </form>

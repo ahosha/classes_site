@@ -1,5 +1,5 @@
 from src.app import app
 
 __author__ = 'ahosha'
-app.run(debug=app.config['DEBUG'], port=4994)
+app.run(debug=app.config['DEBUG'], port=1002)
 
