@@ -1,14 +1,14 @@
 {% extends "base.jinja2" %}
 {% block content %}
     <div class="page-header">
-        <h1>Store
+        <h1>Class:
             <small>{{ lesson.name }}</small>
         </h1>
     </div>
-    <p>Teacher :<strong>{{ lesson.teacherfirstname }}</strong>   <strong>{{ lesson.teacherlastname }}</strong></p>
-    <p>date:<strong>{{ lesson.date }}</strong></p>
-    <p>time:<strong>{{ lesson.time }}</strong></p>
-    <p>lessontype:<strong>{{ lesson.lessontype }}</strong></p>
+<p>Teacher :<strong>{{ lesson.teacherusername }}</strong></p>
+    <p>Date:<strong>{{ lesson.date }}</strong></p>
+    <p>Time:<strong>{{ lesson.time }}</strong></p>
+    <p>Lesson Type:<strong>{{ lesson.lessontype }}</strong></p>
     {% if session['email'] in config.ADMINS %}
         <div class="panel panel-default">
             <div class="panel-body">

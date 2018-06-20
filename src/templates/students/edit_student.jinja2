@@ -27,10 +27,6 @@
                 aria-describedby="locationHelp" value="{{ student.location }}">
                 <span id="locationHelp" class="help-block">Please enter your possible location for better class fit.</span>
             </div>
-            <!--<div class="form-group">-->
-                <!--<label for="abonementtype">abonementtype</label>-->
-                <!--<input type="text" class="form-control" id="abonementtype" name="abonementtype" placeholder="Annualy" value="{{ student.abonementtype }}">-->
-            <!--</div>-->
            <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <label class="input-group-text" for="abonementtype">Abonement Type:</label>
@@ -43,10 +39,28 @@
                 <span id="lessonURLPrefixHelp" class="help-block">Please select abonement type  for this class.</span>
             </div>
             <div class="form-group">
-                <label for="abonementstartdate">Abonement Start Date:</label>
+                <!--<label for="abonementstartdate">Abonement Start Date:</label>-->
+                <!--<div class="container">-->
+                    <!--<div class="row">-->
+                        <!--<div class='col-sm-6'>-->
+                            <!--<div class="form-group">-->
+                                <!--<div class='input-group date' id='abonementstartdate'>-->
+                                    <!--<input type='text' class="form-control" />-->
+                                    <!--<span class="input-group-addon">-->
+                                        <!--<span class="glyphicon glyphicon-calendar"></span>-->
+                                    <!--</span>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<script type="text/javascript">-->
+                            <!--$(function () {-->
+                                <!--$('#abonementstartdate').datetimepicker();-->
+                            <!--});-->
+                        <!--</script>-->
+                    <!--</div>-->
+                <!--</div>-->
                 <input type="text" class="form-control" id="abonementstartdate" name="abonementstartdate" placeholder="DD/MM/YYYY" value="{{ student.abonementstartdate }}">
             </div>
- 
             <div class="form-group">
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">

@@ -18,8 +18,11 @@ class Teacher(object):
         self._id = uuid.uuid4().hex if _id is None else _id
 
     def __repr__(self):
-        # return "<Teacher username:{} firstname:{} lastname:{}>".format(self.username, self.firstname, self.lastname)
-        return "<Teacher username:{}".format(self.username)
+        return "'_id':{} 'username':{} 'password':{} 'firstname':{} 'lastname':{} 'location':{} 'active':{}>".format(
+            self._id,
+            self.username, self.password,
+            self.firstname, self.lastname,
+            self.location, self.active)
 
     def json(self):
         return {
@@ -55,7 +58,6 @@ class Teacher(object):
     def get_by_id(cls, id):
         return cls(**Database.find_one(TeacherConstants.COLLECTION, {"_id": id}))
 
-
     @classmethod
     def get_by_username(cls, username):
         return cls(**Database.find_one(TeacherConstants.COLLECTION, {"username": username}))
@@ -68,8 +70,6 @@ class Teacher(object):
 
         # if Teacher.get_by_username(username) is not None:
         #     raise TeacherErrror.TeacherExistsException("teacher with username {} already exists".format(username))
-
-
 
     """
 

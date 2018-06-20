@@ -1,7 +1,7 @@
 {% extends "base.jinja2" %}
 {% block content %}
     <div class="page-header">
-        <h1>Stores
+        <h1>Classes
             <small>list of classes</small>
         </h1>
     </div>
@@ -9,7 +9,7 @@
         {% for lesson in lessons %}
             <a href="{{ url_for('lessons.lesson_page', lesson_id=lesson._id) }}" class="list-group-item">
                 <h4 class="list-group-item-heading">{{ lesson.name }}</h4>
-                <p class="list-group-item-text">{{ lesson.teacherfirstname }}  {{ lesson.teacherlastname }}</p>
+                <p class="list-group-item-text">{{ lesson.teacherusername }}</p>
                 <p class="list-group-item-text">{{ lesson.date }}</p>
                 <p class="list-group-item-text">{{ lesson.time }}</p>
                 <p class="list-group-item-text">{{ lesson.lessontype }}</p>

@@ -7,7 +7,6 @@ from src.models.teachers.teacher import Teacher
 
 __author__ = 'ahosha'
 
-
 lesson_blueprint = Blueprint('lessons', __name__)
 
 
@@ -20,24 +19,24 @@ def index():
 @lesson_blueprint.route('/new', methods=['GET', 'POST'])
 def create_lesson():
     if request.method == 'POST':
-
         name = request.form['name']
-        teacherusername  = request.form['teacherusername']
+        teacherusername = request.form['teacher']
         date = request.form['date']
         time = request.form['time']
         lessontype = request.form['lessontype']
 
         Lesson(name, teacherusername, date, time, lessontype).save_to_mongo()
 
+        return redirect(url_for('.index'))
 
-    return render_template("lessons/new_lesson.jinja2", teachers=Teacher.all())
+    return render_template("lessons/new_lesson.jinja2", teachers=Teacher.all(), types=Lesson.get_lesson_types())
 
 
 @lesson_blueprint.route('/edit/<string:lesson_id>', methods=['GET', 'POST'])
 def edit_lesson(lesson_id):
     if request.method == 'POST':
         name = request.form['name']
-        teacherid = request.form['teacherid']
+        teacherusername = request.form['teacherusername']
         date = request.form['date']
         time = request.form['time']
         lessontype = request.form['lessontype']
@@ -45,7 +44,7 @@ def edit_lesson(lesson_id):
         lesson = Lesson.get_by_id(lesson_id)
 
         lesson.name = name
-        lesson.teacherid = teacherid
+        lesson.teacherusername = teacherusername
         lesson.date = date
         lesson.time = time
         lesson.lessontype = lessontype
@@ -54,16 +53,19 @@ def edit_lesson(lesson_id):
 
         return redirect(url_for('.index'))
 
-    # What happens if it's a GET request
-    return render_template("lessons/edit_lesson.jinja2", lesson=Lesson.get_by_id(lesson_id))
+    else:
+        lesson = Lesson.get_by_id(lesson_id)
+        teachers = Teacher.all()
+        return render_template("lessons/edit_lesson.jinja2", lesson=lesson, teacherusername=lesson.teacherusername, teachers=teachers, types=Lesson.get_lesson_types(), curlessontype=lesson.lessontype)
 
 
 @lesson_blueprint.route('/delete/<string:lesson_id>')
 def delete_lesson(lesson_id):
-    Lesson.get_by_id(lesson_id).delete()
+    lesson = Lesson.get_by_id(lesson_id)
+    lesson.delete()
+    return redirect(url_for('.index'))
 
 
 @lesson_blueprint.route('/<string:lesson_id>')
 def lesson_page(lesson_id):
     return render_template('lessons/lesson.jinja2', lesson=Lesson.get_by_id(lesson_id))
-

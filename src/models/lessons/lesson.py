@@ -3,6 +3,7 @@ from src.common.database import Database
 import src.models.lessons.constants as LessonConstants
 import src.models.lessons.errors as LessonErrors
 from src.models.teachers.teacher import Teacher
+from src.common.const import LESSON_TYPES
 
 __author__ = 'ahosha'
 
@@ -10,21 +11,20 @@ __author__ = 'ahosha'
 class Lesson(object):
     def __init__(self, name, teacherusername, date, time, lessontype, _id=None):
         self.name = name
-        teacher = Teacher.get_by_username(teacherusername)
-        self.username = teacher.username
+        self.teacherusername = teacherusername
         self.date = date
         self.time = time
         self.lessontype = lessontype
         self._id = uuid.uuid4().hex if _id is None else _id
 
     def __repr__(self):
-        return "<Lesson {}>".format(self.name)
+        return "<Lesson name:{} teacherusername:{} date:{} time:{} lessontype:{}>".format(self.name, self.teacherusername, self.date, self.time, self.lessontype)
 
     def json(self):
         return {
             "_id": self._id,
             "name": self.name,
-            "teacher user name": self.username,
+            "teacherusername": self.teacherusername,
             "date": self.date,
             "time": self.time,
             "lessontype": self.lessontype
@@ -49,18 +49,13 @@ class Lesson(object):
         return cls(**Database.find_one(LessonConstants.COLLECTION, {"name": lesson_name}))
 
     @classmethod
-    def get_by_teacher(cls, first_name, last_name):
+    def get_by_teacher(cls, teacherusername):
         try:
-            return cls(**Database.find_one(LessonConstants.COLLECTION, {"first_name": first_name, "last_name": last_name}))
+            return cls(**Database.find_one(LessonConstants.COLLECTION, {"teacherusername": teacherusername}))
         except:
             raise LessonErrors.LessonNotFoundException(
-                "lessons for teacher {} {} weren't found".format(first_name, last_name))
+                "lessons for teacher: {} weren't found".format(teacherusername))
 
-    @classmethod
-    def find_by_url(cls, url):
-        for i in range(0, len(url)+1):
-            try:
-                lesson = cls.get_by_url_prefix(url[:i])
-                return lesson
-            except:
-                raise LessonErrors.LessonNotFoundException("The URL Prefix used to find the lesson didn't give us any results!")
+    @staticmethod
+    def get_lesson_types():
+        return LESSON_TYPES
