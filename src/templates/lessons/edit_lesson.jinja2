@@ -46,7 +46,13 @@
                     </select>
                 </div>
             </div>
+            <p><strong>Students:</strong>:
+                {% for attendance in attendances %}
+                        <p class="list-group-item-text">{{ attendance.studentname }}</p>
+                {% endfor %}
+            </p>
             <button type="submit" class="btn btn-warning">Update</button>
+
         </form>
     </div>
 {% endblock %}

@@ -43,7 +43,7 @@ class Attendance(object):
         Database.update(AttendanceConstants.COLLECTION, {'_id': self._id}, self.json())
 
     @classmethod
-    def get_by_sudent(cls, studentname):
+    def get_by_student(cls, studentname):
         try:
             return cls(**Database.find_one(AttendanceConstants.COLLECTION, {"studentname": studentname}))
         except:
@@ -51,11 +51,11 @@ class Attendance(object):
                 "Attendances for student: {} weren't found".format(studentname))
 
     @classmethod
-    def get_by_teacher(cls, teacherusername):
+    def get_by_lessonname(cls, lessonname):
         try:
-            return cls(**Database.find_one(AttendanceConstants.COLLECTION, {"teacherusername": teacherusername}))
+            return [cls(**elem) for elem in Database.find(AttendanceConstants.COLLECTION, {"lessonname": lessonname})]
         except:
             raise AttendanceErrors.AttendanceNotFoundException(
-                "Attendances for teacher: {} weren't found".format(teacherusername))
+                "Attendances for lesson: {} weren't found".format(lessonname))
 
 

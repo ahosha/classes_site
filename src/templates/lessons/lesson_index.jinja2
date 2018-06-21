@@ -8,11 +8,11 @@
     <div class="list-group">
         {% for lesson in lessons %}
             <a href="{{ url_for('lessons.lesson_page', lesson_id=lesson._id) }}" class="list-group-item">
-                <h4 class="list-group-item-heading">{{ lesson.name }}</h4>
-                <p class="list-group-item-text">Teacher: {{ lesson.teacherusername }}</p>
-                <p class="list-group-item-text">Date: {{ lesson.date }}</p>
-                <p class="list-group-item-text">Time: {{ lesson.time }}</p>
+                <p class="list-group-item-heading">Date: {{ lesson.date }}</p>
+                <p class="list-group-item-heading">Time: {{ lesson.time }}</p>
                 <p class="list-group-item-text">Type: {{ lesson.lessontype }}</p>
+                <p class="list-group-item-text">Class name: {{ lesson.name }}</p>
+                <p class="list-group-item-text">Teacher: {{ lesson.teacherusername }}</p>
             </a>
         {% endfor %}
     </div>

@@ -4,6 +4,7 @@ from flask import Blueprint, render_template, request, redirect, url_for
 
 from src.models.lessons.lesson import Lesson
 from src.models.teachers.teacher import Teacher
+from src.models.attendance.attendance import Attendance
 
 __author__ = 'ahosha'
 
@@ -56,7 +57,10 @@ def edit_lesson(lesson_id):
     else:
         lesson = Lesson.get_by_id(lesson_id)
         teachers = Teacher.all()
-        return render_template("lessons/edit_lesson.jinja2", lesson=lesson, teacherusername=lesson.teacherusername, teachers=teachers, types=Lesson.get_lesson_types(), curlessontype=lesson.lessontype)
+        attendances = Attendance.get_by_lessonname(lesson.name)
+        return render_template("lessons/edit_lesson.jinja2", lesson=lesson, teacherusername=lesson.teacherusername,
+                               teachers=teachers, types=Lesson.get_lesson_types(), curlessontype=lesson.lessontype,
+                               attendances=attendances)
 
 
 @lesson_blueprint.route('/delete/<string:lesson_id>')
@@ -68,4 +72,6 @@ def delete_lesson(lesson_id):
 
 @lesson_blueprint.route('/<string:lesson_id>')
 def lesson_page(lesson_id):
-    return render_template('lessons/lesson.jinja2', lesson=Lesson.get_by_id(lesson_id))
+    lesson = Lesson.get_by_id(lesson_id)
+    attendances = Attendance.get_by_lessonname(lesson.name)
+    return render_template('lessons/lesson.jinja2', lesson=Lesson.get_by_id(lesson_id), attendances=attendances)
